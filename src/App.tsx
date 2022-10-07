@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style/App.scss";
 
 interface LengthWeakness {
@@ -7,8 +7,12 @@ interface LengthWeakness {
 }
 
 function App() {
-  const [weakness, setWeakness] = useState<LengthWeakness>({});
-  const [weaknesses, setWeaknesses] = useState<LengthWeakness[]>([]);
+  // const [weakness, setWeakness] = useState<LengthWeakness>({});
+  const [weaknesses, setWeaknesses] = useState<LengthWeakness[]>([]); // obligé de push la première valeur de weakness ?
+
+  useEffect(() => {
+    console.log(weaknesses);
+  }, [weaknesses]);
 
   const calculatePasswordStrength = (password: string): LengthWeakness[] => {
     setWeaknesses([...weaknesses, lengthWeakness(password)]);
@@ -18,15 +22,18 @@ function App() {
   const lengthWeakness = (password: string): LengthWeakness => {
     const length: number = password.length;
     if (length < 5) {
-      setWeakness({ message: "Your password is too short", deduction: 40 });
+      let weakness = { message: "Your password is too short", deduction: 40 };
       return weakness;
     }
 
     if (length < 10) {
-      setWeakness({ message: "Your password could be longer", deduction: 15 });
+      let weakness = {
+        message: "Your password could be longer",
+        deduction: 15,
+      };
       return weakness;
     } else {
-      setWeakness({ message: "Your password is solid", deduction: 0 });
+      let weakness = { message: "Your password is solid", deduction: 0 };
       return weakness;
     }
   };
@@ -35,7 +42,6 @@ function App() {
 
   const handleInput = (e: any) => {
     calculatePasswordStrength(e.target.value);
-    console.log(weaknesses);
   };
 
   return (
@@ -49,7 +55,7 @@ function App() {
         autoFocus
         aria-labelledby="password"
         placeholder="password"
-        onInput={handleInput}
+        onChange={handleInput}
       />
       <div id="reasons" className="reasons"></div>
     </div>
