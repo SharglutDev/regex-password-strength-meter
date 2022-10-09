@@ -38,17 +38,17 @@ body {
   border: 3px solid hsl(261, 88%, 57%);
   border-radius: 4rem;
   overflow: hidden;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    height: 100%;
-    width: calc(1% * var(--strength, 0));
-    background-color: hsl(261, 88%, 67%);
-    border-radius: 4rem;
-    transition: width 200ms;
-  }
+.strength-meter-bar {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 100%;
+  max-width: 100%;
+  background-color: hsl(261, 88%, 67%);
+  border-radius: 4rem;
+  transition: width 200ms;
 }
 
 .input-password {
