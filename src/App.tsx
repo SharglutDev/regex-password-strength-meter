@@ -81,7 +81,10 @@ function App() {
         <div
           style={{
             width: `${
-              100 - weaknesses.reduce((prev, curr) => prev + curr.deduction, 0)
+              weaknesses[0].deduction === 100
+                ? 0
+                : 100 -
+                  weaknesses.reduce((prev, curr) => prev + curr.deduction, 0)
             }%`,
           }}
           className="strength-meter-bar"
